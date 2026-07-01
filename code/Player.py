@@ -1,5 +1,4 @@
-#!/usr/bin/python
-# -*- coding: utf-8 -*-
+
 import pygame.key
 
 from code.Entity import Entity
@@ -73,7 +72,7 @@ class Player(Entity):
             self.exhaust_frames = self.exhaust_right
         self.animate()
         self.animate_exhaust()
-        print(f'Player {self.rect.size}')
+
 
     def animate(self):
         self.animation_counter += 1

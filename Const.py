@@ -6,6 +6,7 @@ C_WHITE = (255, 255, 255)
 C_YELLOW = (242, 197, 92)
 C_GREEN = (0, 128, 0)
 C_CIAN = (0, 128, 128)
+C_RED = (255, 0, 0)
 
 #  E
 
@@ -19,8 +20,8 @@ ENTITY_DAMAGE = {
     'Level1Bg5': 0,
     'Level1Bg6': 0,
     'Player1': 100,
-    'Obstacle1': 20,
-    'Obstacle2': 15,
+    'Obstacle1': 5,
+    'Obstacle2': 10,
 }
 
 EVENT_OBSTACLE = pygame.USEREVENT + 1
@@ -47,8 +48,8 @@ ENTITY_SPEED = {
     'Level1Bg4': 5,
     'Level1Bg5': 6,
     'Player1': 3,
-    'Obstacle1': 5,
-    'Obstacle2': 6,
+    'Obstacle1': 6,
+    'Obstacle2': 7,
 
 }
 
@@ -59,35 +60,34 @@ MENU_OPTION = ('NEW SURVIVAL GAME',
                )
 
 # P
-PLAYER_KEY_UP = {'Player1': pygame.K_UP,
-                 'Player2': pygame.K_w}
-PLAYER_KEY_DOWN = {'Player1': pygame.K_DOWN,
-                   'Player2': pygame.K_s}
-PLAYER_KEY_LEFT = {'Player1': pygame.K_LEFT,
-                   'Player2': pygame.K_a}
-PLAYER_KEY_RIGHT = {'Player1': pygame.K_RIGHT,
-                    'Player2': pygame.K_d}
-PLAYER_KEY_SHOOT = {'Player1': pygame.K_RCTRL,
-                    'Player2': pygame.K_LCTRL}
+PLAYER_KEY_UP = {'Player1': pygame.K_UP}
+
+PLAYER_KEY_DOWN = {'Player1': pygame.K_DOWN}
+
+PLAYER_KEY_LEFT = {'Player1': pygame.K_LEFT}
+
+PLAYER_KEY_RIGHT = {'Player1': pygame.K_RIGHT}
+
+PLAYER_KEY_SHOOT = {'Player1': pygame.K_RCTRL}
+
 
 # S
 
-SPAWN_TIME = 1000
-
+SPAWN_TIME = 750
 
 # T
 
 TIMEOUT_STEP = 100  # 100ms
-TIMEOUT_LEVEL = 20000  # 20 S
+TIMEOUT_LEVEL = 60000  # 60s S
 
 #   W
 WIN_WIDTH = 640
 WIN_HEIGHT = 360
 
 SCORE_POS = {'Title': (WIN_WIDTH / 2, 50),
-             'EnterName': (WIN_WIDTH / 2, 80),
+             'Subtitle': (WIN_WIDTH / 2, 80),
              'Label': (WIN_WIDTH / 2, 90),
-             'Name': (WIN_WIDTH / 2, 110),
+             'Label2': (WIN_WIDTH / 2, 110),
              0: (WIN_WIDTH / 2, 110),
              1: (WIN_WIDTH / 2, 130),
              2: (WIN_WIDTH / 2, 150),

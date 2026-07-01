@@ -1,5 +1,3 @@
-#!/usr/bin/python
-# -*- coding: utf-8 -*-
 import sys
 import random
 
@@ -9,15 +7,14 @@ from pygame.rect import Rect
 from pygame.surface import Surface
 from pygame.font import Font
 
-from Const import EVENT_OBSTACLE
+from Const import WIN_WIDTH, C_RED
 from code.EntityMediator import EntityMediator
-# from code.EntityMediator import EntityMediator
-from code.Obstacle import Obstacle
 from code.Entity import Entity
 from code.EntityFactory import EntityFactory
 from code.Player import Player
-from Const import C_WHITE, WIN_HEIGHT, MENU_OPTION, EVENT_OBSTACLE, SPAWN_TIME, C_GREEN, C_CIAN, EVENT_TIMEOUT, \
+from Const import C_WHITE,  EVENT_OBSTACLE, SPAWN_TIME, C_GREEN, EVENT_TIMEOUT, \
     TIMEOUT_STEP, TIMEOUT_LEVEL
+from code.Score import Score
 
 
 class Level:
@@ -46,7 +43,7 @@ class Level:
                 ent.move()
 
                 if ent.name == 'Player1':
-                    self.level_text(14, f'Player1 - Health: {ent.health} | Score: teste', C_GREEN, (10, 25))
+                    self.level_text(25, f'Player Health: {ent.health}', C_GREEN, (10, 25))
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -57,17 +54,40 @@ class Level:
                     self.entity_list.append(EntityFactory.get_entity(choice))
                 if event.type == EVENT_TIMEOUT:
                     self.timeout -= TIMEOUT_STEP
+                if self.timeout == 0:
+                    return True
 
+            self.level_text(20, f'Timeout: {self.timeout / 1000:.1f}s', C_WHITE, (10, 5))
+            # self.level_text(14, f'fps: {clock.get_fps():.0f}', C_WHITE, (10, WIN_HEIGHT - 35))
+            # self.level_text(14, f'entidades: {len(self.entity_list)}', C_WHITE, (10, WIN_HEIGHT - 20))
+            self.level_text_info(50, 'SURVIVE!', C_RED, ((WIN_WIDTH / 2), 50))
 
-            self.level_text(14, f'{self.name} - Timeout: {self.timeout / 1000:.1f}s', C_WHITE, (10, 5))
-            self.level_text(14, f'fps: {clock.get_fps():.0f}', C_WHITE, (10, WIN_HEIGHT - 35))
-            self.level_text(14, f'entidades: {len(self.entity_list)}', C_WHITE, (10, WIN_HEIGHT - 20))
             pygame.display.flip()
             EntityMediator.verify_collision(entity_list=self.entity_list)
             EntityMediator.verify_health(entity_list=self.entity_list)
 
+            player = next(
+                (ent for ent in self.entity_list if isinstance(ent, Player)),
+                None
+            )
+
+            # Derrota
+            if player is None or player.health <= 0:
+                return False
+
+            # Vitória
+            if self.timeout <= 0:
+                Score(self.window).show()
+                return True
+
     def level_text(self, text_size: int, text: str, text_color: tuple, text_pos: tuple):
-        text_font: Font = pygame.font.SysFont(name="Lucida Sans Typewriter", size=text_size)
+        text_font: Font = pygame.font.SysFont(name="Roboto", size=text_size)
         text_surf: Surface = text_font.render(text, True, text_color).convert_alpha()
         text_rect: Rect = text_surf.get_rect(left=text_pos[0], top=text_pos[1])
+        self.window.blit(source=text_surf, dest=text_rect)
+
+    def level_text_info(self, text_size: int, text: str, text_color: tuple, text_center_pos=tuple):
+        text_font: Font = pygame.font.SysFont(name="Roboto", size=text_size)
+        text_surf: Surface = text_font.render(text, True, text_color).convert_alpha()
+        text_rect: Rect = text_surf.get_rect(center=text_center_pos)
         self.window.blit(source=text_surf, dest=text_rect)

@@ -12,13 +12,12 @@ class EntityMediator:
             # Remove o obstáculo quando sair da tela
             if ent.rect.right <= 0 or ent.rect.top >= WIN_HEIGHT:
                 ent.health = 0
-                print('vida', ent.health)
 
     @staticmethod
     def __verify_collision_entity(ent1: Entity, ent2: Entity):
         valid_interaction = (
-            (isinstance(ent1, Obstacle) and isinstance(ent2, Player)) or
-            (isinstance(ent1, Player) and isinstance(ent2, Obstacle))
+                (isinstance(ent1, Obstacle) and isinstance(ent2, Player)) or
+                (isinstance(ent1, Player) and isinstance(ent2, Obstacle))
         )
 
         if not valid_interaction:

@@ -1,5 +1,3 @@
-#!/usr/bin/python
-# -*- coding: utf-8 -*-
 import random
 
 from code.Background import Background
@@ -23,6 +21,6 @@ class EntityFactory:
             case 'Player1':
                 return Player('Player1', (25, WIN_HEIGHT / 2))
             case 'Obstacle1':
-                return Obstacle('Obstacle1', (WIN_WIDTH + 10, random.randint(40, WIN_HEIGHT - 40)))
+                return Obstacle('Obstacle1', (random.randint(WIN_WIDTH // 2, WIN_WIDTH + 50), random.randint(-80, 0)))
             case 'Obstacle2':
-                return Obstacle('Obstacle2', (WIN_WIDTH + 10, random.randint(40, WIN_HEIGHT - 40)))
+                return Obstacle('Obstacle2', (random.randint(WIN_WIDTH // 2, WIN_WIDTH + 50), random.randint(-80, 0)))
