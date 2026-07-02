@@ -9,7 +9,8 @@ class EntityMediator:
     @staticmethod
     def __verify_collision_window(ent: Entity):
         if isinstance(ent, Obstacle):
-            # Remove o obstáculo quando sair da tela
+
+            # Remove the obstacle when it leaves the screen
             if ent.rect.right <= 0 or ent.rect.top >= WIN_HEIGHT:
                 ent.health = 0
 
@@ -23,7 +24,7 @@ class EntityMediator:
         if not valid_interaction:
             return
 
-        # Colisão utilizando a função do Pygame
+        # Detect collision using Pygame's built-in function
         if ent1.rect.colliderect(ent2.rect):
             ent1.health -= ent2.damage
             ent2.health -= ent1.damage
@@ -32,6 +33,8 @@ class EntityMediator:
 
     @staticmethod
     def verify_collision(entity_list: list[Entity]):
+
+        # Check collisions with the screen boundaries and between entities
         for i in range(len(entity_list)):
             entity1 = entity_list[i]
 
@@ -41,7 +44,10 @@ class EntityMediator:
                 entity2 = entity_list[j]
                 EntityMediator.__verify_collision_entity(entity1, entity2)
 
+    @staticmethod
     def verify_health(entity_list: list[Entity]):
+
+        # Remove entities whose health has reached zero
         for ent in entity_list:
             if ent.health <= 0:
                 entity_list.remove(ent)

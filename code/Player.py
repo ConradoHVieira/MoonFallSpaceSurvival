@@ -1,4 +1,3 @@
-
 import pygame.key
 
 from code.Entity import Entity
@@ -7,8 +6,11 @@ from Const import ENTITY_SPEED, WIN_HEIGHT, WIN_WIDTH, PLAYER_KEY_UP, PLAYER_KEY
 
 
 class Player(Entity):
+
     def __init__(self, name: str, position: tuple):
         super().__init__(name, position)
+
+        # Load the player animation frames
         self.frames = []
 
         for i in range(5):
@@ -18,34 +20,39 @@ class Player(Entity):
 
         self.current_frame = 0
         self.animation_counter = 0
-        self.animation_speed = 5 # troca de frame a cada 15 atualizações
+
+        # Number of updates before switching to the next animation frame
+        self.animation_speed = 5
+
+        # Load exhaust animations
         self.exhaust_frames = []
 
-        # Idle
+        # Idle animation
         self.exhaust_idle = [
             pygame.image.load("assets/exhaust_idle_0.png").convert_alpha(),
             pygame.image.load("assets/exhaust_idle_1.png").convert_alpha()
         ]
 
-        # Esquerda
+        # Exhaust animation while moving left
         self.exhaust_left = [
             pygame.image.load("assets/exhaust_low_0.png").convert_alpha(),
             pygame.image.load("assets/exhaust_low_1.png").convert_alpha()
         ]
 
-        # Direita
+        # Exhaust animation while moving right
         self.exhaust_right = [
             pygame.image.load("assets/exhaust_high_0.png").convert_alpha(),
             pygame.image.load("assets/exhaust_high_1.png").convert_alpha()
         ]
 
-        # Animação atual
+        # Set the default exhaust animation
         self.exhaust_frames = self.exhaust_idle
         self.exhaust_frame = 0
         self.exhaust_counter = 0
         self.exhaust_speed = 6
         self.exhaust = self.exhaust_frames[0]
 
+    # Draw the exhaust and the player sprite
     def draw(self, window):
 
         exhaust_x = self.rect.left - 20
@@ -54,9 +61,11 @@ class Player(Entity):
         window.blit(self.exhaust, (exhaust_x, exhaust_y))
         window.blit(self.surf, self.rect)
 
-    def move(self, ):
+    # Handle player movement and animations
+    def move(self):
         self.exhaust_frames = self.exhaust_idle
         pressed_key = pygame.key.get_pressed()
+
         if pressed_key[PLAYER_KEY_UP[self.name]] and self.rect.top > 0:
             self.rect.centery -= ENTITY_SPEED[self.name]
 
@@ -70,10 +79,11 @@ class Player(Entity):
         if pressed_key[PLAYER_KEY_RIGHT[self.name]] and self.rect.right < WIN_WIDTH:
             self.rect.centerx += ENTITY_SPEED[self.name]
             self.exhaust_frames = self.exhaust_right
+
         self.animate()
         self.animate_exhaust()
 
-
+    # Update the player animation
     def animate(self):
         self.animation_counter += 1
 
@@ -82,6 +92,7 @@ class Player(Entity):
             self.current_frame = (self.current_frame + 1) % len(self.frames)
             self.surf = self.frames[self.current_frame]
 
+    # Update the exhaust animation
     def animate_exhaust(self):
         self.exhaust_counter += 1
 
@@ -90,4 +101,3 @@ class Player(Entity):
             self.exhaust_frame = (self.exhaust_frame + 1) % len(self.exhaust_frames)
 
         self.exhaust = self.exhaust_frames[self.exhaust_frame]
-

@@ -9,12 +9,13 @@ class Obstacle(Entity):
     def __init__(self, name: str, position: tuple):
         super().__init__(name, position)
 
-        # Cai para baixo
+        # Vertical movement (downward)
         self.speed_y = ENTITY_SPEED[self.name]
 
-        # Anda para a esquerda
+        # Random horizontal movement (to the left)
         self.speed_x = random.randint(1, ENTITY_SPEED[self.name] * 4)
 
+    # Update the obstacle position
     def move(self):
         self.rect.centerx -= self.speed_x
         self.rect.centery += self.speed_y
