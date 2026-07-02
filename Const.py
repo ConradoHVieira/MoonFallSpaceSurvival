@@ -7,6 +7,8 @@ C_YELLOW = (242, 197, 92)
 C_GREEN = (0, 128, 0)
 C_RED = (255, 0, 0)
 
+
+
 #  E
 
 
@@ -67,7 +69,6 @@ PLAYER_KEY_LEFT = {'Player1': pygame.K_LEFT}
 
 PLAYER_KEY_RIGHT = {'Player1': pygame.K_RIGHT}
 
-PLAYER_KEY_SHOOT = {'Player1': pygame.K_RCTRL}
 
 
 # S
@@ -82,6 +83,8 @@ TIMEOUT_LEVEL = 60000  # 60s S
 #   W
 WIN_WIDTH = 640
 WIN_HEIGHT = 360
+
+CONTROLS_POS = (10, WIN_HEIGHT - 10)
 
 SCORE_POS = {'Title': (WIN_WIDTH / 2, 50),
              'Subtitle': (WIN_WIDTH / 2, 80),

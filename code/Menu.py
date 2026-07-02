@@ -3,7 +3,7 @@ from pygame.font import Font
 from pygame.rect import Rect
 from pygame.surface import Surface
 
-from Const import WIN_WIDTH, C_ORANGE, MENU_OPTION, C_WHITE, C_YELLOW
+from Const import WIN_WIDTH, C_ORANGE, MENU_OPTION, C_WHITE, C_YELLOW, CONTROLS_POS
 
 
 class Menu:
@@ -39,6 +39,7 @@ class Menu:
                 text_color=C_ORANGE,
                 text_center_pos=((WIN_WIDTH / 2), 120)
             )
+            self.controls_text(18, "Controls: Arrow Up, Arrow Down, Arrow Right, Arrow Left", C_WHITE, CONTROLS_POS)
 
             # Draw the menu options and highlight the selected one
             for i in range(len(MENU_OPTION)):
@@ -91,4 +92,10 @@ class Menu:
         text_font: Font = pygame.font.SysFont(name="Roboto", size=text_size)
         text_surf: Surface = text_font.render(text, True, text_color).convert_alpha()
         text_rect: Rect = text_surf.get_rect(center=text_center_pos)
+        self.window.blit(source=text_surf, dest=text_rect)
+
+    def controls_text(self, text_size: int, text: str, text_color: tuple, text_bottomleft_pos: tuple):
+        text_font: Font = pygame.font.SysFont(name="Roboto", size=text_size)
+        text_surf: Surface = text_font.render(text, True, text_color).convert_alpha()
+        text_rect: Rect = text_surf.get_rect(bottomleft=text_bottomleft_pos)
         self.window.blit(source=text_surf, dest=text_rect)

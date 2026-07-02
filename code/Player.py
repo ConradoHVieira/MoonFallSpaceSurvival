@@ -2,7 +2,7 @@ import pygame.key
 
 from code.Entity import Entity
 from Const import ENTITY_SPEED, WIN_HEIGHT, WIN_WIDTH, PLAYER_KEY_UP, PLAYER_KEY_DOWN, PLAYER_KEY_LEFT, \
-    PLAYER_KEY_RIGHT, PLAYER_KEY_SHOOT
+    PLAYER_KEY_RIGHT
 
 
 class Player(Entity):
